@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #0b1a26;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-abyss font-display text-foam antialiased;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #f7c531;
+  color: #0b1a26;
+}
+
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+@layer components {
+  /* Condensed editorial display type. */
+  .display {
+    font-variation-settings: "wdth" 76;
+    letter-spacing: -0.015em;
+    line-height: 0.86;
+  }
+
+  .tri-band {
+    background: linear-gradient(90deg, #ec5b46 0 33.34%, #f7c531 33.34% 66.67%, #4bb468 66.67% 100%);
+  }
+
+  .tri-band-v {
+    background: linear-gradient(180deg, #ec5b46 0 33.34%, #f7c531 33.34% 66.67%, #4bb468 66.67% 100%);
+  }
+
+  .placeholder-hatch {
+    background-image: repeating-linear-gradient(135deg, rgb(237 240 234 / 0.045) 0 10px, transparent 10px 20px);
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky focus-visible:ring-offset-2 focus-visible:ring-offset-abyss;
+  }
+
+  .btn-primary {
+    @apply focus-ring inline-flex items-center justify-center rounded-full bg-sun px-6 py-3 text-base font-bold text-abyss transition-transform duration-200 hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply focus-ring inline-flex items-center justify-center rounded-full border border-tide px-6 py-3 text-base font-semibold text-foam transition-colors duration-200 hover:border-foam;
+  }
+
+  /* Prompt engineering card: detail text reveals on hover for mouse users, always visible on touch. */
+  .pe-detail {
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .pe-card .pe-detail {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    .pe-card:hover .pe-detail,
+    .pe-card:focus-within .pe-detail,
+    .pe-card:focus .pe-detail {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .generating {
+    background: linear-gradient(110deg, rgb(33 67 91 / 0.35) 30%, rgb(147 161 255 / 0.28) 50%, rgb(33 67 91 / 0.35) 70%);
+    background-size: 250% 100%;
+    animation: generating 1.6s linear infinite;
+  }
+}
+
+@keyframes generating {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.caret {
+  animation: caret 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
